@@ -10,10 +10,18 @@ class Item extends AbstractDb{
      *
      * @return void
      */
+
+
+    public function __construct(
+        \Magento\Framework\Model\ResourceModel\Db\Context $context
+    )
+    {
+        parent::__construct($context);
+    }
+
     protected function _construct()
     {
-        // TODO: Implement _construct() method.
-
         $this->_init('mastering_sample_item' , 'id');
     }
+
 }

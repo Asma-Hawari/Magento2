@@ -6,9 +6,9 @@ use Magento\Framework\Model\AbstractModel;
 
 class Item extends  AbstractModel {
 
-    public function __construct()
+    protected function _construct()
     {
-      $this->_init(\Mastering\SampleModule\Model\ResourceModel\Item::class);
+        $this->_init('Mastering\SampleModule\Model\ResourceModel\Item');
     }
 
 }
