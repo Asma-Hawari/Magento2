@@ -100,40 +100,5 @@ class ItemRepository implements ItemRepositoryInterface
         return $searchResults;
     }
 
-    /*add search crateria
 
-
-    get list just description filtering*/
-
-
-    /*command get list add argument for filtering /* method add filter */
-
-    /**
-     * Create or update a data
-     */
-    public function save(\Mastering\SampleModule\Api\Data\ItemInterface $item)
-    {
-        // TODO: Implement save() method.
-    }
-
-    public function getById($itemId)
-    {
-        // TODO: Implement getById() method.
-    }
-
-    /**
-     * Delete item.
-     */
-    public function delete(\Mastering\SampleModule\Api\Data\ItemInterface $item)
-    {
-        // TODO: Implement delete() method.
-    }
-
-    /**
-     * Delete item by ID.
-     */
-    public function deleteById($itemId)
-    {
-        // TODO: Implement deleteById() method.
-    }
 }

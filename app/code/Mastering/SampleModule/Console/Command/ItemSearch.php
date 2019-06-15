@@ -34,15 +34,19 @@ class ItemSearch extends Command
 
     protected function configure()
     {
-        $this->setName('Mastering:item:search')
-            ->addArgument(self::INPUT_KEY_FIELD, InputArgument::REQUIRED,
+        $this->setName(
+            'Mastering:item:search')
+            ->addArgument(self::INPUT_KEY_FIELD,
+                InputArgument::REQUIRED,
                 'search field ')
             ->addArgument(
                 self::INPUT_KEY_VALUE,
                 InputArgument::REQUIRED,
                 'search value'
-            )->addArgument(self::INPUT_KEY_CONDITION,
-                InputArgument::REQUIRED , 'Search Condition type');
+            )->addArgument(
+                self::INPUT_KEY_CONDITION,
+                InputArgument::REQUIRED ,
+                'Search Condition type');
 
         parent::configure();
     }
