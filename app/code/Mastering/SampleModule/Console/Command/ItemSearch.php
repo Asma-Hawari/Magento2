@@ -20,9 +20,15 @@ class ItemSearch extends Command
 
 
 
-    public function __construct(ItemRepository $itemRepository)
+
+
+    public function __construct(
+        ItemRepository $itemRepository
+
+        )
     {
         $this->itemRepository = $itemRepository;
+
         parent::__construct();
     }
 
@@ -47,17 +53,16 @@ class ItemSearch extends Command
         create('Magento\Framework\Api\SearchCriteriaBuilder');
 
         $searchCriteria = $searchCriteriaBuilder->addFilter(
-            $input->getArgument(Self::INPUT_KEY_FIELD),
-            $input->getArgument(Self::INPUT_KEY_VALUE),
+            $input->getArgument(self::INPUT_KEY_FIELD),
+            $input->getArgument(self::INPUT_KEY_VALUE),
            $input->getArgument(self::INPUT_KEY_CONDITION)
         )->create();
         $items = $this->itemRepository->getList($searchCriteria);
 
-        echo (empty($items->getItems()));
-        //die();
+
         foreach ($items->getItems() as $value) {
-            echo $value;
+            print_r($value->toString());
         }
-        return CLi::RETURN_SUCCESS;
+        return Cli::RETURN_SUCCESS;
     }
 }

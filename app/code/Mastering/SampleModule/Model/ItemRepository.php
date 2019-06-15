@@ -13,6 +13,7 @@ use Mastering\SampleModule\Model\ResourceModel\Item\CollectionFactory;
 use Mastering\SampleModule\Model\ResourceModel\Item as ResourceItem;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Reflection\DataObjectProcessor;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessor;
 
 class ItemRepository implements ItemRepositoryInterface
 
@@ -23,7 +24,7 @@ class ItemRepository implements ItemRepositoryInterface
     protected $resource;
 
     /**
-     * @var BlockFactory
+     * @var ItemFactory
      */
     protected $itemFactory;
 
@@ -31,7 +32,7 @@ class ItemRepository implements ItemRepositoryInterface
 
 
     /**
-     * @var Data\BlockSearchResultsInterfaceFactory
+     * @var Data\ItemSearchResultsInterfaceFactory
      */
     protected $searchResultsFactory;
 
@@ -47,9 +48,11 @@ class ItemRepository implements ItemRepositoryInterface
     protected $dataObjectProcessor;
 
     /**
-     * @var \Mastering\SampleModule\Api\Data\TestInterfaceFactory
+     * @var \Mastering\SampleModule\Api\Data\ItemInterfaceFactory
      */
     protected $dataitemFactory;
+
+    protected  $collectionprocessor;
 
 
     public function __construct(
@@ -59,7 +62,8 @@ class ItemRepository implements ItemRepositoryInterface
         \Mastering\SampleModule\Api\Data\ItemInterfaceFactory $dataitemFactory,
         \Mastering\SampleModule\Api\Data\ItemSearchResultsInterfaceFactory $searchResultsFactory,
         DataObjectHelper $dataObjectHelper,
-        DataObjectProcessor $dataObjectProcessor
+        DataObjectProcessor $dataObjectProcessor,
+        CollectionProcessor $collectionProcessor
     )
     {
         $this->resource = $resource;
@@ -69,6 +73,7 @@ class ItemRepository implements ItemRepositoryInterface
         $this->searchResultsFactory = $searchResultsFactory;
         $this->dataObjectHelper = $dataObjectHelper;
         $this->dataObjectProcessor = $dataObjectProcessor;
+        $this->collectionprocessor = $collectionProcessor;
     }
 
    /* public function getList()
@@ -87,30 +92,7 @@ class ItemRepository implements ItemRepositoryInterface
     public function getList(\Magento\Framework\Api\SearchCriteriaInterface $criteria)
     {
         $collection = $this->collectionFactory->create();
-        foreach ($criteria->getFilterGroups() as $filterGroup) {
-            foreach ($filterGroup->getFilters() as $filter) {
-                if ($filter->getField() === 'id') {
-                    $collection->addFilter($filter->getValue(), false);
-                    continue;
-                }
-                $condition = $filter->getConditionType() ?: 'eq';
-                $collection->addFieldToFilter($filter->getField(), [$condition => $filter->getValue()]);
-            }
-        }
-
-        $sortOrders = $criteria->getSortOrders();
-        if ($sortOrders) {
-            /** @var SortOrder $sortOrder */
-            foreach ($sortOrders as $sortOrder) {
-                $collection->addOrder(
-                    $sortOrder->getField(),
-                    ($sortOrder->getDirection() == SortOrder::SORT_ASC) ? 'ASC' : 'DESC'
-                );
-            }
-        }
-        $collection->setCurPage($criteria->getCurrentPage());
-        $collection->setPageSize($criteria->getPageSize());
-
+        $this->collectionprocessor->process($criteria, $collection);
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
         $searchResults->setTotalCount($collection->getSize());
