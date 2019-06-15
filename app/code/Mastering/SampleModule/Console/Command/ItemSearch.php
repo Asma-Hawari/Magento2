@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Mastering\SampleModule\Model\ItemRepository;
-
+use Magento\Framework\Api\SearchCriteriaBuilder;
 class ItemSearch extends Command
 {
     const INPUT_KEY_FIELD='field';
@@ -17,17 +17,24 @@ class ItemSearch extends Command
 
     private $itemRepository ;
 
+    private  $search_criteria_builder ;
+
+
 
 
 
 
 
     public function __construct(
-        ItemRepository $itemRepository
+        ItemRepository $itemRepository,
+        SearchCriteriaBuilder $search_criteria_builder
+
 
         )
     {
         $this->itemRepository = $itemRepository;
+        $this->search_criteria_builder = $search_criteria_builder;
+
 
         parent::__construct();
     }
@@ -52,11 +59,9 @@ class ItemSearch extends Command
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $searchCriteriaBuilder = $objectManager->
-        create('Magento\Framework\Api\SearchCriteriaBuilder');
 
-        $searchCriteria = $searchCriteriaBuilder->addFilter(
+
+        $searchCriteria = $this->search_criteria_builder->addFilter(
             $input->getArgument(self::INPUT_KEY_FIELD),
             $input->getArgument(self::INPUT_KEY_VALUE),
            $input->getArgument(self::INPUT_KEY_CONDITION)
