@@ -5,9 +5,14 @@
             <argument name="commands" xsi:type="array">
                 <item name="masteringAddItem" xsi:type="object">Mastering\SampleModule\Console\Command\AddItem</item>
             </argument>
+
+            <argument name="commands" xsi:type="array">
+                    <item name="masteringSearchItem" xsi:type="object">Mastering\SampleModule\Console\Command\ItemSearch</item>
+            </argument>
+
         </arguments>
     </type>
-
     <preference for="Mastering\SampleModule\Api\Data\ItemInterface" type="Mastering\SampleModule\Model\Item" />
+    <preference for="Mastering\SampleModule\Api\Data\ItemSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
     <preference for="Mastering\SampleModule\Api\ItemRepositoryInterface" type="Mastering\SampleModule\Model\ItemRepository" />
 </config>
