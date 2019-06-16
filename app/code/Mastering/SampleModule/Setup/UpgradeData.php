@@ -34,6 +34,32 @@ class UpgradeData implements UpgradeDataInterface
 
        }
 
+        if(version_compare($context->getVersion() , '1.1.0' , '<') )
+        {
+            $setup->getConnection()->insert(
+
+
+
+                $setup->getTable('mastering_item_images'),
+                [
+
+                    'item_id'=> 1,
+                    'path'=>'pub/media/asma/image_01.jpg'
+                ]
+            );
+
+            $setup->getConnection()->insert(
+
+                $setup->getTable('mastering_item_images'),
+                [
+                    'item_id'=> 1,
+                    'path'=>'pub/media/asma/image_02.jpg'
+                ]
+
+            );
+
+        }
+
        $setup->endSetup();
     }
 }

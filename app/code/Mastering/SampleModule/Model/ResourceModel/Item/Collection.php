@@ -11,12 +11,14 @@ use Mastering\SampleModule\Model\Item;
 
 
 
+
 class Collection extends AbstractCollection
 {
     protected $_idFieldName= 'id';
 
     protected function _construct()
     {
+
         $this->_init(Item::class , ItemResource::class);
     }
 
