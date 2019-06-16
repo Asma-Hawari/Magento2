@@ -31,9 +31,9 @@
 
         </bookmark>
 
-        <columnControls name="column_controls">
+        <columnsControls name="column_controls">
 
-        </columnControls>
+        </columnsControls>
 
         <filters name="listing_filter">
 
