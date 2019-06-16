@@ -14,6 +14,7 @@ class ItemSearch extends Command
     const INPUT_KEY_FIELD='field';
     const INPUT_KEY_VALUE='value';
     const INPUT_KEY_CONDITION='Condition Type';
+    const INPUT_KEY_QUERY = 'Show Query ' ;
 
     private $itemRepository ;
 
@@ -53,24 +54,34 @@ class ItemSearch extends Command
             )->addArgument(
                 self::INPUT_KEY_CONDITION,
                 InputArgument::REQUIRED ,
-                'Search Condition type');
+                'Search Condition type')
+         ->addOption('show')
+        ;
+
 
         parent::configure();
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
-
-        $searchCriteria = $this->search_criteria_builder->addFilter(
+        $searchCriteria = $this->search_criteria_builder
+            ->addFilter(
             $input->getArgument(self::INPUT_KEY_FIELD),
             $input->getArgument(self::INPUT_KEY_VALUE),
            $input->getArgument(self::INPUT_KEY_CONDITION)
         )->create();
+
+
         $items = $this->itemRepository->getList($searchCriteria);
+
+        if($input->getOption('show'))
+            echo 'The Query Was : '.$this->itemRepository->getSelectQuery();
+        printf ("\n");
+
 
 
         foreach ($items->getItems() as $value) {
-            print_r($value->toString());
+            print_r('The Result is : '.$value->toString());
+            printf ("\n");
         }
         return Cli::RETURN_SUCCESS;
     }

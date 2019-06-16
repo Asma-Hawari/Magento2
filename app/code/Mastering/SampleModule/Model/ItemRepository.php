@@ -23,6 +23,26 @@ class ItemRepository implements ItemRepositoryInterface
      */
     protected $resource;
 
+
+    private  $selectQuery;
+
+    /**
+     * @return mixed
+     */
+    public function getSelectQuery()
+    {
+        return $this->selectQuery;
+    }
+
+    /**
+     * @param mixed $selectQuery
+     */
+    public function setSelectQuery($selectQuery)
+    {
+        $this->selectQuery = '';
+        $this->selectQuery = $selectQuery;
+    }
+
     /**
      * @var ItemFactory
      */
@@ -91,14 +111,21 @@ class ItemRepository implements ItemRepositoryInterface
      */
     public function getList(\Magento\Framework\Api\SearchCriteriaInterface $criteria)
     {
+        //reintilization
+        //
+        //static -> shared between objects
+
+
         $collection = $this->collectionFactory->create();
         $this->collectionprocessor->process($criteria, $collection);
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
         $searchResults->setTotalCount($collection->getSize());
         $searchResults->setItems($collection->getItems());
-        return $searchResults;
+        $this->setSelectQuery(($collection->getSelect()));
+        return  $searchResults;
     }
+
 
 
 }
