@@ -4,7 +4,6 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Mastering_SampleModule::mastering" title="mastering" translate="title" sortOrder="900" >
-
                 </resource>
             </resource>
         </resources>

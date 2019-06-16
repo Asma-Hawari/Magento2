@@ -13,5 +13,5 @@ interface ItemRepositoryInterface{
     /**
      * @return \Mastering\SampleModule\Api\Data\ItemInterface[]
      */
-    public function getList();
+    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
 }

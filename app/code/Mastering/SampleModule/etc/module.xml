@@ -4,7 +4,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module:etc/module.xsd">
     <module name = "Mastering_SampleModule" setup_version = "1.0.1">
         <sequence>
-            <module  name = "Magento_Catalog"></module>
+            <module name = "Magento_Catalog"></module>
         </sequence>
     </module>
 
