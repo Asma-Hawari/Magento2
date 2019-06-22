@@ -50,10 +50,14 @@
         </arguments>
     </virtualType>
 
-    <type name="Mastering\SampleModule\Console\Command\AddItem">
+    <type name="Mastering\SampleModule\Observer\Logger">
         <arguments>
             <argument name="logger" xsi:type="object">Mastering_Logger</argument>
         </arguments>
+    </type>
+
+    <type name="Mastering\SampleModule\Console\Command\AddItem">
+        <plugin name = "console_logging" type="Mastering\SampleModule\Plugin\Logger"></plugin>
     </type>
 
 </config>
