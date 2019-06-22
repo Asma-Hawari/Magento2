@@ -22,4 +22,38 @@
             </argument>
         </arguments>
     </type>
+
+    <!-- Replace the debug file in all the classes -->
+
+   <!-- <preference for="Magento\Framework\Logger\Handler\Debug" type="Mastering\SampleModule\Model\DebugHandler"></preference>-->
+
+
+    <!-- Replace the Debug file in just the classes uses Monlog -->
+
+    <!--<type name="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers"  xsi:type="array">
+                <item name="debug" xsi:type="object">Mastering\SampleModule\Model\DebugHandler</item>
+            </argument>
+        </arguments>
+    </type>-->
+
+    <!-- Replace the debug file in just the logger in the command line -->
+   <virtualType name="Mastering_Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">main</argument>
+            <argument name="handlers"  xsi:type="array">
+            <item name="system" xsi:type="object">Magento\Framework\Logger\Handler\System</item>
+            <item name="debug" xsi:type="object">Mastering\SampleModule\Model\DebugHandler</item>
+            <item name="syslog" xsi:type="object">Magento\Framework\Logger\Handler\Syslog</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Mastering\SampleModule\Console\Command\AddItem">
+        <arguments>
+            <argument name="logger" xsi:type="object">Mastering_Logger</argument>
+        </arguments>
+    </type>
+
 </config>
