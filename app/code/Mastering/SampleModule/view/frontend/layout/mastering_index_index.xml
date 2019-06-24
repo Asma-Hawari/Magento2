@@ -10,6 +10,6 @@
         </block>
     </referenceContainer>
 
-    <referenceBlock name="form.subscribe" remove="true"></referenceBlock>
+    <referenceBlock name="form.subscribe" remove="false"></referenceBlock>
 </body>
 </page>
