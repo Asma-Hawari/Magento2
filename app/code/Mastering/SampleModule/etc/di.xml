@@ -15,6 +15,10 @@
     <preference for="Mastering\SampleModule\Api\Data\ItemInterface" type="Mastering\SampleModule\Model\Item" />
     <preference for="Mastering\SampleModule\Api\Data\ItemSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
     <preference for="Mastering\SampleModule\Api\ItemRepositoryInterface" type="Mastering\SampleModule\Model\ItemRepository" />
+
+
+
+
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
@@ -22,4 +26,15 @@
             </argument>
         </arguments>
     </type>
+
+
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="base_tax_amount" xsi:type="string">sales_order.base_tax_amount</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+
 </config>
